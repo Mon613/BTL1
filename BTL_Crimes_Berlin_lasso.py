@@ -20,26 +20,30 @@ def lasso():
     lassoReg.fit(xTrain, yTrain)# train mô hình
     predict = np.array(lassoReg.predict(xTest))# dự đoán trên tập test
     train_set = lassoReg.predict(xTrain)# dự đoán trên tập train
-    return {'Title': 'Lasso',
+    return {'Lasso': '',
     'R2 score': r2_score(yTest, predict),# Tính điểm r2 trên tập test
     'Score NSE': nse(yTest, predict),
     'Score NSE by hydroeval': evaluator(nse, predict, yTest),
     'Score MAE': mean_absolute_error(yTest, predict),
     'Score RMSE': mean_squared_error(yTest, predict)**0.5,
-    'Test error': train_error(yTest.tolist(), predict.tolist()),
-    'Train error': train_error(yTrain.tolist(), train_set.tolist())}
+    'Test error': train_error(yTest.tolist(), predict.tolist()), #Lỗi của mô hình trên tập kiểm tra
+    'Train error': train_error(yTrain.tolist(), train_set.tolist()),# Lỗi của mô hình trên tập huấn luyện
+    }, predict
 
-data = pd.read_csv('./BTL1/solieu1.csv') ## Load data
+data = pd.read_csv('solieu1.csv') ## Load data
 
 dTrain, dTest = train_test_split(data, test_size=0.3, shuffle=False) ## Split data
-xTrain, yTrain = np.array(dTrain.iloc[:,:11]), np.array(dTrain.iloc[:,11]) ## Data train model
-xTest, yTest = np.array(dTest.iloc[:,:11]), np.array(dTest.iloc[:,11])
+xTrain, yTrain = np.array(dTrain.iloc[:,:10]), np.array(dTrain.iloc[:,10]) ## Data train model
+xTest, yTest = np.array(dTest.iloc[:,:10]), np.array(dTest.iloc[:,10])
 
-ll = lasso() 
+ll,y_Test = lasso() 
  ## Sort model by key (R2 score) descending
 
 ### Print
 for j in ll:
     print(j, ': ', ll[j], sep='')
 
+print("Thuc te        Du doan              Chenh lech")
+for i in range(0,len(y_Test)):
+    print(yTest[i],"  ",y_Test[i],  "  " , abs(yTest[i]-y_Test[i]))
 
