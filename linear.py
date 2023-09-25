@@ -25,7 +25,8 @@ y_pred = reg.predict(X_test)
 
 y=np.array(y_test)
 print("Coefficient of determination: %.2f" % r2_score(y_test, y_pred))
+print('NSE:', NSE(y, y_pred))
+print('R2:', r2_score(y, y_pred))
 print("Thuc te   Du doan      Chenh lech")
 for i in range(0,len(y)):
     print("%.2f" % y[i], "   ", y_pred[i], "   ", abs(y[i]-y_pred[i]))
-print('NSE:', NSE(y, y_pred))
