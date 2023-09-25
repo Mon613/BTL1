@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.metrics import r2_score
+from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.model_selection import KFold
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
@@ -40,8 +40,11 @@ for train_index, validation_index in kf.split(dt_Train):
 
 y_test_pred=regr.predict(dt_Test.iloc[:,:10])
 y_test=np.array(dt_Test.iloc[:,10])
+
 print('NSE:', NSE(y_test, y_test_pred))
 print('R2:', r2_score(y_test, y_test_pred))
+print('Score MAE:', mean_absolute_error(y_test, y_test_pred))
+print('Score RMSE:', mean_squared_error(y_test, y_test_pred)**0.5)
 print("Thuc te        Du doan              Chenh lech")
 for i in range(0,len(y_test)):
     print(y_test[i],"  ",y_test_pred[i],  "  " , abs(y_test[i]-y_test_pred[i]))

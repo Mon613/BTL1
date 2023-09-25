@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.metrics import r2_score
+from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 import numpy as np
@@ -27,6 +27,8 @@ y=np.array(y_test)
 print("Coefficient of determination: %.2f" % r2_score(y_test, y_pred))
 print('NSE:', NSE(y, y_pred))
 print('R2:', r2_score(y, y_pred))
+print('Score MAE:', mean_absolute_error(y, y_pred))
+print('Score RMSE:', mean_squared_error(y, y_pred)**0.5)
 print("Thuc te   Du doan      Chenh lech")
 for i in range(0,len(y)):
     print("%.2f" % y[i], "   ", y_pred[i], "   ", abs(y[i]-y_pred[i]))
